@@ -1,0 +1,51 @@
+<Window x:Class="BrightnessControl.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Brightness Control" Height="520" Width="440"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BgBrush}"
+        FontFamily="Segoe UI">
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Grid Grid.Row="0" Margin="0,0,0,14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Displays" FontSize="20" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
+            <Button Grid.Column="1" Content="Refresh" Style="{StaticResource GhostButton}" Click="RefreshButton_Click"/>
+        </Grid>
+
+        <!-- Sync-all card -->
+        <Border Grid.Row="1" Style="{StaticResource CardStyle}">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Same brightness for all" Style="{StaticResource TitleText}"/>
+                    <TextBlock x:Name="SyncValueText" Grid.Column="1" Text="—" Style="{StaticResource ValueText}"/>
+                </Grid>
+                <TextBlock Text="Drag to set every connected display to the same level" Style="{StaticResource SubText}" Margin="0,2,0,8"/>
+                <Slider x:Name="SyncSlider" Style="{StaticResource AccentSlider}"
+                        Minimum="0" Maximum="100"
+                        IsSnapToTickEnabled="True" TickFrequency="1"
+                        ValueChanged="SyncSlider_ValueChanged"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Per-monitor list -->
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <StackPanel Name="MonitorPanel">
+                <TextBlock Text="Loading monitors..." Style="{StaticResource SubText}"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>
